@@ -21,6 +21,9 @@ import org.bson.Document;
 
 public class Main {
     public static void main(String[] args) {
+
+        System.setProperty("server.port", "8082");
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Enter username: ");
