@@ -46,7 +46,6 @@
 
   <build>
     <plugins>
-      <!-- Standard JAR Plugin (Ensures MANIFEST.MF has Main-Class) -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -54,13 +53,13 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>org.example.App</mainClass>
+              <!-- Changed to Main -->
+              <mainClass>org.example.Main</mainClass>
             </manifest>
           </archive>
         </configuration>
       </plugin>
 
-      <!-- Assembly Plugin (Creates Fat JAR with Dependencies) -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
@@ -71,6 +70,7 @@
           </descriptorRefs>
           <archive>
             <manifest>
+              <!-- Keep this as Main -->
               <mainClass>org.example.Main</mainClass>
             </manifest>
           </archive>
