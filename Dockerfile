@@ -1,7 +1,7 @@
 FROM maven:3.8.6-eclipse-temurin-17-alpine AS build
 WORKDIR /app
 COPY . .
-RUN mvn clean package assembly:single -DskipTests
+RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
