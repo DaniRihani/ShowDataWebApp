@@ -10,26 +10,33 @@
   <properties>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
+    <maven.assembly.plugin.version>3.6.0</maven.assembly.plugin.version>
   </properties>
 
   <dependencies>
-    <!-- Existing dependencies remain unchanged -->
+    <!-- JUnit for testing -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
+
+    <!-- HTTP Client -->
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
       <version>4.5.13</version>
     </dependency>
+
+    <!-- MongoDB Driver -->
     <dependency>
       <groupId>org.mongodb</groupId>
       <artifactId>mongodb-driver-sync</artifactId>
       <version>4.3.0</version>
     </dependency>
+
+    <!-- Jackson for JSON parsing -->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
@@ -39,7 +46,7 @@
 
   <build>
     <plugins>
-      <!-- Required for executable JAR -->
+      <!-- Standard JAR Plugin (Ensures MANIFEST.MF has Main-Class) -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -53,11 +60,11 @@
         </configuration>
       </plugin>
 
-      <!-- For creating fat JAR with dependencies -->
+      <!-- Assembly Plugin (Creates Fat JAR with Dependencies) -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>3.6.0</version>
+        <version>${maven.assembly.plugin.version}</version>
         <configuration>
           <descriptorRefs>
             <descriptorRef>jar-with-dependencies</descriptorRef>
