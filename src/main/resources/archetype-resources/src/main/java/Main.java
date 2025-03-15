@@ -5,13 +5,11 @@ package org.example;
 import java.io.IOException;
 import java.util.Scanner;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.mongodb.client.MongoClient;
@@ -21,7 +19,7 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
-public class App {
+public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
