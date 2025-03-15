@@ -13,16 +13,27 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4  # Updated from v3 to v4
 
     - name: Set up Java
       uses: actions/setup-java@v3
       with:
         java-version: '17'
         distribution: 'temurin'
+    
+    - name: Cache Maven packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
 
     - name: Build with Maven
-      run: mvn clean install -DskipTests
+      run: mvn clean package -DskipTests  # Changed from install to package
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
 
     - name: Login to Docker Hub
       uses: docker/login-action@v2
@@ -31,9 +42,13 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Build and push Docker image
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v4  # Updated from v3 to v4
       with:
         context: .
         file: ./Dockerfile
-        tags: ${{ env.DOCKER_IMAGE_NAME }}:latest,${{ env.DOCKER_IMAGE_NAME }}:${{ github.run_id }}
+        platforms: linux/amd64,linux/arm64  # Add multi-arch support
+        tags: |
+          ${{ env.DOCKER_IMAGE_NAME }}:latest
+          ${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
+          ${{ env.DOCKER_IMAGE_NAME }}:build-${{ github.run_id }}
         push: true
